@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Index</title>
+<style>
+
+#main {
+    width:80%;
+    margin: 10px auto;
+    background: white;
+}
+body { background: -moz-radial-gradient(#99ffcc,#000); background: -webkit-gradient(radial, center center,10,center center,1000, from(#ffffff), to(#99ffb3)); color:#555; background-color:#99ffb3; }
+h1 { font: bold 50px Helvetica, Arial, Sans-serif; text-align: center; color: #eee; text-shadow: 0px 2px 6px #333; }
+h2 a { display: block; text-decoration: none; margin: 0 0 30px 0; font: italic 40px Georgia, Times, Serif;  text-align: center; color: #bfe1f1; text-shadow: 0px 2px 6px #333; }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th { 
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: #CCFF00;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<br>
+<div id="main" align="center">
+<br>
+<h1>Question List</h1>
+
+{% if latest_question_list %}
+    <ul>
+    <table>
+    <tr>
+	<th>Question</th>
+    </tr>
+    {% for question in latest_question_list %}
+    <tr>
+        <td><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</td></li>
+    </tr>
+    {% endfor %}
+    </table>
+    </ul>
+    
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+<form action="{% url 'polls:add_question' %}" method="post">
+    <h4>Add Question</h4>
+    {% csrf_token %}
+    <input type="text" name="addQuestion" maxlength="99" size="30"/><br>
+    <input type="submit" value="Add"/>
+    <br><br>
+</form>
+
+<br><br><br>
+</div>
+</body>
+</html>
+
+
+
